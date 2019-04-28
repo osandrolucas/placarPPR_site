@@ -11,6 +11,16 @@
 			<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
 		 {% endif %}
          <h1>{{ post.title }}</h1>
+         <h1>Meta Ano: R$ {{ post.meta_ano }}</h1>
+         <h1>Meta Acumulado: R$ {{ post.meta_acum }}</h1>
+         <h1>Real Acumulado: R$ {{ post.real_acum }}</h1>
+         <h1>% Atingido: {{ post.percent_ating }}%</h1>
+         <h1>Atingido Ano: {{ post.atingido_ano }}%</h1>
+         <h1>Farol: {{ post.farol }}</h1>
+         <h1>Qtd. Salários: {{ post.qt_salarios }}</h1>
+         <h1>IMPORTANTE (*): {{ post.obs }}</h1>
+         <h1>Publicador: {{ post.publicador }}</h1>
          <p>{{ post.text|linebreaksbr }}</p>
      </div>
+
 {% endblock %}

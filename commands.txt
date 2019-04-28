@@ -1,1 +1,8 @@
 para criar novo usuário: python manage.py createsuperuser
+
+
+Inicio no Bash (normal) PythonAnywhere
+pip3.6 install --user pythonanywhere
+pa_autoconfigure_django.py --nuke https://github.com/osandrolucas/placarPPR_site.git (--nuke é quando já existe uma aplicação)
+
+Post.objects.create(publicador=me, title='Resultado Acum Março/2019', meta_ano='R$ 177.367', meta_acum='R$ 35.797', real_acum='R$ 25.766', percent_ating='71,98%', atingido_ano='14,53%', farol='VERMELHO', qt_salarios='0', obs='IMPORTANTE (*): A quantidade de salários informada acima, varia em função do valor da folha de dezembro/2019 e da Bolsa PPR. Bolsa PPR: é o percentual do resultado da empresa que os acionistas disponibilizam para distribuição entre os colaboradores.' )
