@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-
 class Post(models.Model):
     publicador = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
@@ -10,7 +9,7 @@ class Post(models.Model):
     real_acum = models.CharField(max_length=20)
     percent_ating = models.CharField(max_length=10)
     atingido_ano = models.CharField(max_length=10)
-    farol = models.TextField(max_length=20)
+    farol = models.CharField(max_length=10)
     qt_salarios = models.CharField(max_length=5)
     obs = models.TextField()
     created_date = models.DateTimeField(
