@@ -1,13 +1,14 @@
 /*Página Principal*/
 h1 a {
-    color: #FCA205;
+    color: #4f5386;
     font-family: 'Kreon', serif;
-    font-size: 20pt;
+    font-size: 27pt;
+    line-height: 0.1;
 }
-
-.lucas {
-    font-family: 'Kreon', serif;
-    font-size: 10pt;
+.imagem{
+    color: #ffffff;
+    float: right;
+    margin-right: 0px;
 }
 body {
     padding-left: 15px;
@@ -16,12 +17,15 @@ body {
     background-color: #244ca4;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
+    margin-top: 0px;
+    margin-left: -15px;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #ffffff;
-    font-size: 20pt;
+    font-size: 30px;
     text-decoration: none;
+    text-align: center;
 }
 
 .content {

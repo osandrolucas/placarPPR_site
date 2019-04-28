@@ -3,7 +3,7 @@ from django.utils import timezone
 
 class Post(models.Model):
     publicador = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=100)
     meta_ano = models.CharField(max_length=20)
     meta_acum = models.CharField(max_length=20)
     real_acum = models.CharField(max_length=20)
