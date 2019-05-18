@@ -12,3 +12,5 @@ Projeto criado a partir de uma necessidade de criar um portal com informações 
 * Python 3.7
 * Django 2.0.6
 * SQLite3
+* Docker Swarm
+* JavaScript
