@@ -1,24 +1,42 @@
 {% load static %}
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <title>Placar PPR - GRUPO RBS</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'css/placarPPR.css' %}">
         <link href="https://fonts.googleapis.com/css?family=Kreon:700" rel="stylesheet">
 
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+        <!-- PERCIRCLE -->
+        <script type="text/javascript" src="{% static 'percircle/dist/js/percircle.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'percircle/dist/css/percircle.css' %}">
+
+        <!-- GOAL PROGRESS -->
+        <script type="text/javascript" src="{% static 'goalProgress/goalProgress.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'goalProgress/goalProgress.css' %}">
+
+
     </head>
     <body>
-                <img class="imagem" src="http://comercial.gruporbs.com.br/wp-content/uploads/2017/12/logo_grupo_branco-01-1.png" alt="logo_GrupoRBS" width="100" right="90">
+                <a href="/"><img class="imagem" src="http://comercial.gruporbs.com.br/wp-content/uploads/2017/12/logo_grupo_branco-01-1.png" alt="logo_GrupoRBS" width="100" right="90"></a>
         <div class="page-header">
             {% if user.is_authenticated %}
 				<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
 			{% endif %}
-            <h1><a href="/">PPR - EBITDAP ACUMULADO</a></h1>
+            {% if header_title%}
+                <h1><a href="#">PPR - {{ header_title }}</a></h1>
+            {% else %}
+                <h1><a href="/">PPR - EBITDAP ACUMULADO</a></h1>
+            {% endif %}
         </div>
-        <div class="content container">
+        <main role="main" class= "container-base">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col">
                     {% block content %}
                     {% endblock %}
                 </div>

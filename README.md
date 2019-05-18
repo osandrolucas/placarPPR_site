@@ -1,8 +1,9 @@
 ## Site PlacarPPR
 
-Projeto criado a partir de uma necessidade de criar um portal com informações sobre o placar de PPR da empresa. Eu gostaria de aprender Django, já havia feito um projeto no formato de Blog, então reaproveitei e criei este site.
+Projeto criado a partir de uma necessidade de criar um portal com informações sobre o placar de PPR da empresa.
 
 ## Comands
+* python -m pip install --upgrade pip
 * pip install -r requirements.txt
 * New User for Admin: python manage.py createsuperuser
 * python manage.py runserver

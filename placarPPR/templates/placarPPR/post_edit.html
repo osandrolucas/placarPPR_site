@@ -1,9 +1,60 @@
 {% extends 'placarPPR/base.html' %}
 
 {% block content %}
+
     <h1 align="center">Atualização de Postagem</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+    <div class = "row">
+    	<div class="col-sm-8">
+		    <form method="POST" class="post-form top30">{% csrf_token %}
+		        {{ form.as_p }}
+		        <button type="submit" class="save btn btn-default">Save</button>
+		    </form>
+    	</div>
+    	<div class="col-sm-4 top45">
+    		<div class="top15"><label>Percent ating:</label></div> <input type="text" value="" maxlength="10" disabled id="percent_ating">
+	    	<div class="top15"><label>Ating ano:</label></div> <input type="text" value="" maxlength="10" disabled id="ating_ano">
+	    	<div class="top15"><label>Farol:</label></div> <input type="text" name="percent_ating" value="" maxlength="10" disabled id="farol">
+    	</div>
+    </div>
+
+   
+    <script type="text/javascript">
+
+    	function atualiza_campos(){
+    	  // Função que atualiza os campos percent_ating, ating_ano
+		  // e farol.
+    	  // Lê os campos meta_ano, meta_acum e real_acum
+    	  let meta_ano = parseFloat($("#id_meta_ano").val());
+    	  let meta_acum = parseFloat($("#id_meta_acum").val());
+    	  let real_acum = parseFloat($("#id_real_acum").val());
+
+    	  // atualiza a input percent_ating de acordo com os valores de
+    	  // real_acum e meta_acum
+		  $("#percent_ating").val(((real_acum/meta_acum)*100).toFixed(2));
+
+		  // atualiza a input ating_ano de acordo com os valores de
+		  // real_acum e meta_ano
+		  $("#ating_ano").val(((real_acum/meta_ano)*100).toFixed(2));
+
+		  // Atualiza o valor de farol de acordo com o valor de percent_ating
+		  let percent_ating = (real_acum/meta_acum)*100;
+		  if (percent_ating < 80){ // VERMELHO
+		  	$("#farol").val('VERMELHO')
+		  }else if (percent_ating >= 100){ // VERDE
+		  	$("#farol").val('VERDE')
+		  }
+		  else{ // AMARELO
+		  	$("#farol").val('AMARELO')
+		  }
+    	}
+
+    	$( document ).ready(function() {
+		    atualiza_campos();
+		});
+
+    	// A seguinte função sempre executará após uma tecla ser pressionada nas inputs:
+    	$( "input" ).keyup(function( event ) {
+    	  atualiza_campos();
+		});
+    </script>
 {% endblock %}

@@ -7,11 +7,18 @@ h1 a {
 }
 .imagem{
     color: #ffffff;
-    float: right;
-    margin-right: 0px;
+    float: left;
+    margin: 22px auto 0 2%;
 }
 body {
-    padding-left: 15px;
+    background-color: #f5f5f5;
+    padding:0;
+    width: 100%;
+}
+
+.container-base{
+    width: 90%;
+    margin: auto;
 }
 .page-header {
     background-color: #244ca4;
@@ -28,6 +35,14 @@ body {
     text-align: center;
 }
 
+.page-header h1{
+    width: 80%;
+    margin: auto;
+}
+
+.page-header h1 a{
+    line-height: 1em;
+}
 .content {
     margin-left: 20px;
 }
@@ -49,17 +64,68 @@ h1, h2, h3, h4 {
     width: 100%;
 }
 
-.top-menu, .top-menu:hover, .top-menu:visited {
+.top-menu, .top-menu:visited {
     color: #ffffff;
     float: right;
     font-size: 26pt;
     margin-right: 20px;
 }
 
+.top-menu span:hover{
+    text-shadow: #e4e4e4 1px 0px 5px;
+    color: #fff;
+}
+
 .post {
+    width:100%;
     margin-bottom: 70px;
 }
 
 .post h1 a, .post h1 a:visited {
     color: #000000;
 }
+
+/* Página de detalhamento do placar */
+
+.table{
+    font-size: 1em;
+}
+
+.detail_card{
+    float: left;
+    width: 18%;
+    margin: 0 2% 30px 3%;
+    border: 3px solid #6686cb;
+    border-radius: 5px;
+    height: 150px;
+    background-color: #a4bed5;
+}
+
+.detail_h{
+    color:#333333;;
+}
+.dashboard_main{
+    margin-top:35px;
+    font-family: 'Kreon', serif;
+    margin-bottom: 30px;
+}
+.dashboard_main .detail_value{
+    display:inline-block;
+    font-size: 4em;
+}
+
+.percircle.medium {
+  font-size: 170px;
+}
+
+
+.qt_salarios_num{
+    font-size: 118px;
+    vertical-align: middle;
+}
+
+
+.top15 { margin-top:15px; }
+.top30 { margin-top:30px; }
+.top45 { margin-top:45px; }
+.top60 { margin-top:60px; }

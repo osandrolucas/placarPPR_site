@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  ppr_webapp:
+   image: swarm-master.rbs.cloud:5000/${IMAGE}:${IMAGE_TAG}
+   networks:
+     - traefik
+   environment:
+    - ALLOWED_HOSTS=${URL}
+   volumes:
+     - '/corp_apps/placarppr/db.sqlite3:/usr/src/app/db.sqlite3'
+   deploy:
+     mode: replicated
+     replicas: ${REPLICAS}
+     restart_policy:
+       condition: on-failure
+     labels:
+       - "traefik.backend=${STACK}"
+       - "traefik.frontend.rule=Host:${URL}"
+       - "traefik.port=80"
+     placement:
+       constraints:
+         - engine.labels.class == application
+networks:
+  traefik:
+    external:
+      name: traefik-net

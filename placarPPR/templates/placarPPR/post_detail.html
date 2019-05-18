@@ -1,26 +1,174 @@
 {% extends 'placarPPR/base.html' %}
 
 {% block content %}
-     <div class="post">
-         {% if post.published_date %}
-             <div class="date">
-                 {{ post.published_date }}
-             </div>
-         {% endif %}
-         {% if user.is_authenticated %}
-			<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-		 {% endif %}
-         <h1>{{ post.title }}</h1>
-         <h1>Meta Ano: R$ {{ post.meta_ano }}</h1>
-         <h1>Meta Acumulado: R$ {{ post.meta_acum }}</h1>
-         <h1>Real Acumulado: R$ {{ post.real_acum }}</h1>
-         <h1>% Atingido: {{ post.percent_ating }}%</h1>
-         <h1>Atingido Ano: {{ post.atingido_ano }}%</h1>
-         <h1>Farol: {{ post.farol }}</h1>
-         <h1>Qtd. Salários: {{ post.qt_salarios }}</h1>
-         <h1>IMPORTANTE (*): {{ post.obs }}</h1>
-         <h1>Publicador: {{ post.publicador }}</h1>
-         <p>{{ post.text|linebreaksbr }}</p>
-     </div>
+    <style type="text/css">
+        #wifi{
+            {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
+                color: #ff4444;
+            {% elif post.farol == 'amarelo' or post.farol == 'AMARELO'%}
+                color: #ffbb33;
+            {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
+                color: #00c851;
+            {% endif %}
+            font-size:3em;
+        }
+    </style>
 
+    <div class="post">
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
+    
+  <!--   <h1>{{ post.title }}</h1> -->
+
+    
+    <div class="dashboard_main">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div id="atingido_parcial" data-percent="{{ post.percent_ating }}" class="center medium percent-wheel"></div>
+                </div>
+                <div class="row">
+                    <div class="text-center h2">Atingido Acumulado</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div id="atingido_ano" data-percent="{{ post.atingido_ano }}" class="center medium percent-wheel"></div>
+                </div>
+                <div class="row">
+                    <div class="text-center h2">Atingido do Ano</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row text-center qt_salarios_num">
+                    {{ post.qt_salarios }}
+                </div>
+                <div class="row">
+                    <div class="text-center h2">Salários Estimados</div>
+                </div>
+            </div>      
+        </div>
+        
+        <div class="row top15">
+            <!-- <div class="col-sm-2"></div> -->
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-md-6 h5">Meta Acumulado</div>
+                    <div class="col-md-6 text-right h4">R${{ post.meta_acum }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 h5">Real Acumulado</div>
+                    <div class="col-md-10" id="meta_acumulada"></div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-md-6 h5">Meta Anual</div>
+                    <div class="col-md-6 text-right h4">R${{ post.meta_ano }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 h5">Atingido</div>
+                    <div class="col-md-10" id="meta_anual"></div>
+                </div>
+            </div>
+            <div class="col-sm-4 text-center">
+                <div class="row">
+                    <div class="col-md-6 h5"></div>
+                </div>
+                <div class="row align-text-bottom">
+                    <span id="wifi" class="glyphicon glyphicon-signal"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive top15 summary-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>PILAR COMUNICAÇÃO</th>
+                    <th>Meta Ano</th>
+                    <th>Meta Acum</th>
+                    <th>Real Acum</th>
+                    <th>% Ating.</th>
+                    <th>Atingido Ano</th>
+                    <th>Farol</th>
+                    <th>Qt Salários (*)</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                    <td>EBITDAP - R$ mil - RBS MÍDIAS</td>
+                    <td>R${{ post.meta_ano }}</td>
+                    <td>R${{ post.meta_acum }}</td>
+                    <td>R${{ post.real_acum }}</td>
+                    <td>{{ post.percent_ating }}%</td>
+                    <td>{{ post.atingido_ano }}%</td>
+                    <td>{{ post.farol }}</td>
+                    <td>{{ post.qt_salarios }}</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="date top15">
+        {{ post.obs }}
+    </div>
+    {% if post.published_date %}
+            <div class="date top15">
+                Publicado em {{ post.published_date }}
+            </div>
+        {% endif %}
+    <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+
+    <script type="text/javascript">
+    $(function(){
+        $("#atingido_ano").percircle({
+            {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
+                progressBarColor: "#ff4444"
+            {% elif post.farol == 'amarelo' or post.farol == 'AMARELO'%}
+                progressBarColor: "#ffbb33"
+            {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
+                progressBarColor: "#00c851"
+            {% endif %}
+        });
+        $("#atingido_parcial").percircle({
+            {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
+                progressBarColor: "#ff4444"
+            {% elif post.farol == 'amarelo' or post.farol == 'AMARELO'%}
+                progressBarColor: "#ffbb33"
+            {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
+                progressBarColor: "#00c851"
+            {% endif %}
+        });
+
+        $('#meta_anual').goalProgress({
+            goalAmount: {{ post.meta_ano }},
+            currentAmount: {{ post.real_acum }},
+            textBefore: 'R$',
+            textAfter: {{ post.real_acum }},
+            {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
+                color: "#ff4444"
+            {% elif post.farol == 'amarelo' or post.farol == 'AMARELO'%}
+                color: "#ffbb33"
+            {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
+                color: "#00c851"
+            {% endif %}
+        });
+        $('#meta_acumulada').goalProgress({
+            goalAmount: {{ post.meta_acum }},
+            currentAmount: {{ post.real_acum }},
+            textBefore: 'R$',
+            textAfter: {{ post.real_acum }},
+            {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
+                color: "#ff4444"
+            {% elif post.farol == 'amarelo' or post.farol == 'AMARELO'%}
+                color: "#ffbb33"
+            {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
+                color: "#00c851"
+            {% endif %}
+        });
+    });
+</script>
 {% endblock %}
