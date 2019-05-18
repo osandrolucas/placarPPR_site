@@ -28,9 +28,9 @@ DEBUG = True
 try:
     more_allowed_hosts = os.environ['ALLOWED_HOSTS'].replace(
         ' ', '').split(',')
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0'] + more_allowed_hosts
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', '.pythonanywhere.com'] + more_allowed_hosts
 except KeyError:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', '.pythonanywhere.com']
 
 # Application definition
 
