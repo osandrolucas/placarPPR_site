@@ -10,7 +10,7 @@
             {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
                 color: #00c851;
             {% endif %}
-            font-size:3em;
+            font-size:3.5em;
         }
     </style>
 
@@ -24,7 +24,7 @@
     
     <div class="dashboard_main">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="row">
                     <div id="atingido_parcial" data-percent="{{ post.percent_ating }}" class="center medium percent-wheel"></div>
                 </div>
@@ -32,61 +32,22 @@
                     <div class="text-center h2">Atingido Acumulado</div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="row">
-                    <div id="atingido_ano" data-percent="{{ post.atingido_ano }}" class="center medium percent-wheel"></div>
-                </div>
-                <div class="row">
-                    <div class="text-center h2">Atingido do Ano</div>
-                </div>
-            </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="row text-center qt_salarios_num">
                     {{ post.qt_salarios }}
                 </div>
                 <div class="row">
-                    <div class="text-center h2">Salários Estimados</div>
+                    <div class="text-center h2">Salários Estimados (*)</div>
                 </div>
             </div>      
         </div>
-        
-        <div class="row top15">
-            <!-- <div class="col-sm-2"></div> -->
-            <div class="col-sm-4">
-                <div class="row">
-                    <div class="col-md-6 h5">Meta Acumulado</div>
-                    <div class="col-md-6 text-right h4">R${{ post.meta_acum }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 h5">Real Acumulado</div>
-                    <div class="col-md-10" id="meta_acumulada"></div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="row">
-                    <div class="col-md-6 h5">Meta Anual</div>
-                    <div class="col-md-6 text-right h4">R${{ post.meta_ano }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 h5">Atingido</div>
-                    <div class="col-md-10" id="meta_anual"></div>
-                </div>
-            </div>
-            <div class="col-sm-4 text-center">
-                <div class="row">
-                    <div class="col-md-6 h5"></div>
-                </div>
-                <div class="row align-text-bottom">
-                    <span id="wifi" class="glyphicon glyphicon-signal"></span>
-                </div>
-            </div>
-        </div>
+
     </div>
     <div class="table-responsive top15 summary-table">
         <table class="table">
             <thead>
                 <tr>
-                    <th>PILAR COMUNICAÇÃO</th>
+                    <th>RBS Mídias</th>
                     <th>Meta Ano</th>
                     <th>Meta Acum</th>
                     <th>Real Acum</th>
@@ -98,7 +59,7 @@
             </thead>
             <tbody>
               <tr>
-                    <td>EBITDAP - R$ mil - RBS MÍDIAS</td>
+                    <td>EBITDAP - R$ mil</td>
                     <td>R${{ post.meta_ano }}</td>
                     <td>R${{ post.meta_acum }}</td>
                     <td>R${{ post.real_acum }}</td>
@@ -124,15 +85,6 @@
 
     <script type="text/javascript">
     $(function(){
-        $("#atingido_ano").percircle({
-            {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
-                progressBarColor: "#ff4444"
-            {% elif post.farol == 'amarelo' or post.farol == 'AMARELO'%}
-                progressBarColor: "#ffbb33"
-            {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
-                progressBarColor: "#00c851"
-            {% endif %}
-        });
         $("#atingido_parcial").percircle({
             {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
                 progressBarColor: "#ff4444"
@@ -142,33 +94,25 @@
                 progressBarColor: "#00c851"
             {% endif %}
         });
-
-        $('#meta_anual').goalProgress({
-            goalAmount: {{ post.meta_ano }},
-            currentAmount: {{ post.real_acum }},
-            textBefore: 'R$',
-            textAfter: {{ post.real_acum }},
-            {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
-                color: "#ff4444"
-            {% elif post.farol == 'amarelo' or post.farol == 'AMARELO'%}
-                color: "#ffbb33"
-            {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
-                color: "#00c851"
-            {% endif %}
-        });
-        $('#meta_acumulada').goalProgress({
-            goalAmount: {{ post.meta_acum }},
-            currentAmount: {{ post.real_acum }},
-            textBefore: 'R$',
-            textAfter: {{ post.real_acum }},
-            {% if post.farol == 'vermelho' or post.farol == 'VERMELHO'  %}
-                color: "#ff4444"
-            {% elif post.farol == 'amarelo' or post.farol == 'AMARELO'%}
-                color: "#ffbb33"
-            {% elif post.farol == 'verde' or post.farol == 'VERDE'%}
-                color: "#00c851"
-            {% endif %}
-        });
     });
+
+
+    function animate_count($el, duration, prefix, postfix, is_decimal) {
+        prefix = prefix || '';
+        postfix = postfix || '';
+        is_decimal = is_decimal || false;
+
+        var text = $el.text().replace(/[^0-9]/g, '')
+
+        jQuery({ counter: 0 }).animate({ counter: parseInt(text) }, {
+                duration: 1250,
+                easing: 'swing',
+                step: function () {
+                    text = is_decimal ? Math.ceil(this.counter) / 100 : Math.ceil(this.counter);
+                    $el.text(prefix + text + postfix);
+                }
+            });
+        }
+
 </script>
 {% endblock %}
